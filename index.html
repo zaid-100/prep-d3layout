@@ -1,1 +1,51 @@
+<html>
+<head><style>
+    body{background-color: antiquewhite;
+    margin-right: 40%;
+    font-size: 22px;
+        font-family: sans-serif;
+    }
+    pre {color: blue;}    
+    p1{font-style: oblique;}
 
+
+    </style>   </head>    
+<body>
+<h1>  D3 Layout  </h1>    
+    <p> Layouts in D3 are not visuals themselves but rather ways to change or map data in a new way and generate new data convenient for a visual task. There are 3 main types of Layouts discussed in chapter 13. </p>
+    <ol>
+    <li> Pie </li>
+    <li>Stack</li>
+    <li>Force</li>
+    </ol>
+<h2>Pie</h2>
+    <p> Pie changes the data so that a pie-chart can be visualized using D3 </p>
+<h2> Stack </h2>    
+    <p>Stack changes the data so visualizations like Bar Charts can be made using D3.</p>
+<h2> Force </h2>
+    <p>Used to change data so a "force" graph can be made using D3.</p>
+<h1> The commonality </h1>    
+    <p> Although each of these D3 Layouts have different syntax to present the data and have different purposes, all of the map functions themselves merely transform the data from one form to another so that D3 syntax can be used later to do its job. This is done when binding the data to our function which visualizes the data in our SVG. It is as follows: </p>
+    <pre> svg.selectAll("g")
+.data(d3.pie(dataset))
+.enter()
+.append("g") </pre>
+    <p> Note that the layout function is just d3.pie() used in .data() phrase of the D3 algorithm. we will see similar method used to transform data in Stack and Force Layouts as well:</p>
+    <p1>stack</p1>
+    <pre>var groups = svg.selectAll("g")
+.data(d3.stack(dataset))
+.enter()
+.append("g")</pre>
+    <p1> Force </p1>
+    <pre> var force = d3.forceSimulation(dataset.nodes)
+.force("charge", d3.forceManyBody())
+.force("link", d3.forceLink(dataset.edges))
+.force("center", d3.forceCenter().x(w/2).y(h/2)) </pre>
+    <p> Although the data is only changed when binding, some setup variables are defined for force as shown above and then linked while binding data as shown below:</p>
+    <pre>svg.selectAll("line")
+.data(dataset.edges)
+.enter()
+.append("line")</pre>
+    <p>Note that the D3 code for force when we defined that variable is running and the ".force" phrase which says d3.forceLink(dataset.edges) already links the data being bound to the visual element together in a force diagram, so that it appears as it is supposed to.</p>
+    </body>
+</html>
